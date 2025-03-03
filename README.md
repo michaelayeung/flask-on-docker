@@ -15,7 +15,7 @@ To set up and run the Flask application, do the following:
 1. **Clone the Repository:**
 
 ```
-$ git clone <https://github.com/michaelayeung/flask-on-docker
+$ git clone https://github.com/michaelayeung/flask-on-docker
 $ cd flask-on-docker
 ```
 
