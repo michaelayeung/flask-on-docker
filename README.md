@@ -20,7 +20,7 @@ $ cd flask-on-docker
 ```
 
 2. **Create Environment Files:**
-In the project root, create a file .env.prod.db
+In the project root, create a file .env.prod.db that contains the following:
 
 ```
 POSTGRES_USER={your username}
@@ -28,7 +28,7 @@ POSTGRES_PASSWORD={your password}
 POSTGRES_DB={your db name}
 ```
 
-3. **Build and Start Containers:
+3. **Build and Start Containers**:
 
 ```
 $ docker compose -f docker-compose.prod.yml up -d --build
@@ -36,22 +36,22 @@ $ docker compose -f docker-compose.prod.yml exec web python manage.py create_db
 ```
 
 4. **Access the Web Application:**
-Open a browser and go to:
+Open a browser and upload an image at the following link.
 
 ```
 http://localhost:8080/upload
 ```
-Then, upload an image.
+
 
 5. **View the Image:**
-To view the image, go to:
+To view the image go to the following link on your web browser.
 
 ```
 http://localhost:8080/media/IMAGE_FILE_NAME
 ```
 
 6. **Shut Down the Containers:**
-To remove the containers and volumes run:
+Run the following to remove the containers and volumes.
 ```
 $ docker compose -f docker-compose.prod.yml down -v
 ```
