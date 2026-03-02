@@ -1,0 +1,49 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main      # or 'dev' if you use a separate dev branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dev-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'  # match your project
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Start Flask dev server
+      run: |
+        # Run Flask in the background
+        nohup python manage.py run -p 5001 &
+        # Give server a few seconds to start
+        sleep 5
+
+    - name: Check dev server
+      run: |
+        # Make a request to localhost to verify the server responds
+        if curl --fail http://127.0.0.1:5001; then
+          echo "Dev server is up!"
+        else
+          echo "Dev server failed to start."
+          exit 1
+        fi
+
+    - name: Stop dev server
+      run: |
+        # Kill Flask server
+        pkill -f "python manage.py run"
