@@ -3,7 +3,7 @@ name: test
 on:
   push:
     branches:
-      - main      # or 'dev' if you use a separate dev branch
+      - main
   pull_request:
     branches:
       - main
@@ -19,31 +19,24 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'  # match your project
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
+        cd services/web      # change to the folder containing requirements.txt
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Start Flask dev server
       run: |
-        # Run Flask in the background
-        nohup python manage.py run -p 5001 &
-        # Give server a few seconds to start
+        cd services/web
+        nohup python manage.py run -p 1105 &
         sleep 5
 
     - name: Check dev server
       run: |
-        # Make a request to localhost to verify the server responds
-        if curl --fail http://127.0.0.1:5001; then
-          echo "Dev server is up!"
-        else
-          echo "Dev server failed to start."
-          exit 1
-        fi
+        curl --fail http://127.0.0.1:1105 || exit 1
 
     - name: Stop dev server
       run: |
-        # Kill Flask server
         pkill -f "python manage.py run"
