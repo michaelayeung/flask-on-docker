@@ -23,15 +23,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd services/web      # change to the folder containing requirements.txt
+        cd services/web
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Start Flask dev server
       run: |
         cd services/web
-        nohup python manage.py run -p 1105 &
-        sleep 5
+        nohup python manage.py run --host=0.0.0.0 -p 1105 &
+        sleep 10
 
     - name: Check dev server
       run: |
