@@ -2,41 +2,25 @@ name: test
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
 
 jobs:
-  dev-build:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Build containers
+        run: docker compose build
 
-    - name: Install dependencies
-      run: |
-        cd services/web
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Start services
+        run: docker compose up -d
 
-    - name: Start Flask dev server
-      run: |
-        cd services/web
-        nohup python manage.py run --host=0.0.0.0 -p 1105 &
-        sleep 10
+      - name: Wait for server
+        run: sleep 10
 
-    - name: Check dev server
-      run: |
-        curl --fail http://localhost:8080/upload || exit 1
-
-    - name: Stop dev server
-      run: |
-        pkill -f "python manage.py run"
+      - name: Test web server
+        run: curl --fail http://localhost:8080
