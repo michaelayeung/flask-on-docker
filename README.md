@@ -1,6 +1,4 @@
-# Flask on Docker
-
-[![tests](https://github.com/michaelayeung/flask-on-docker/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/michaelayeung/flask-on-docker/actions/workflows/test.yml)
+# Flask on Docker [![tests](https://github.com/michaelayeung/flask-on-docker/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/michaelayeung/flask-on-docker/actions/workflows/test.yml)
 
 ## Overview
 This repository follows this tutorial: https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/. The tutorial demonstrates how to structure and containerize a Flask application using Docker and integrating it with Postgres, Gunicorn, and Nginx using a modified Instragram tech stack. 
